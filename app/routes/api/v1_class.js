@@ -1,10 +1,3 @@
-'use strict'
-var random  = require('random-token');
-var bcrypt  = require('bcrypt');
-
-
-var redis = require("redis"),
-    client = redis.createClient();
 
 
 
@@ -36,7 +29,19 @@ class v1_class {
 
 	}
 
-	
+	generate_subject(req,res) {
+
+
+
+
+	}
+
+	generate_course(req,res) {
+
+
+	}
+
+
 
 }
 
