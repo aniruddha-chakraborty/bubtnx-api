@@ -5,6 +5,7 @@ var bcrypt  = require('bcrypt');
 var redis = require("redis"),
     client = redis.createClient();
 
+var ObjectID = require("bson-objectid");
 
 module.exports = function (app, db,express) {
 
@@ -109,9 +110,10 @@ module.exports = function (app, db,express) {
 
 				db.cypher({
 
-				    query: 'CREATE (n:subject { name: {subject_name} , subject_code: {subject_code} })',
+				    query: 'CREATE (n:subject {object_id:{object_id}, name: {subject_name} , subject_code: {subject_code} })',
 				    params: {
-				       	
+
+				       	object_id: ObjectID(),
 				       	subject_name: subjects[i],
 				        subject_code: '0'+i
 				    },
@@ -127,9 +129,9 @@ module.exports = function (app, db,express) {
 
 			db.cypher({
 
-			    query: 'CREATE (n:course { name: {course_name} , course_code: {course_code} })',
+			    query: 'CREATE (n:course { object_id:{object_id}, name: {course_name} , course_code: {course_code} })',
 			    params: {
-
+			    	object_id: ObjectID(),
 			        course_name: 'C programming',
 			        course_code: 'CSE 101'
 			    },
@@ -140,6 +142,10 @@ module.exports = function (app, db,express) {
 			    	throw err;
 
 			});
+
+
+
+
 			return res.send();
 
 	});
@@ -147,10 +153,37 @@ module.exports = function (app, db,express) {
 
 	api.get('/relationship',(req,res) => {
 
+			// relationship query
 
+			db.cypher({
+
+					query: "MATCH (n) RETURN n"
+
+			},function(err,results){
+
+					if (err)
+						throw err;
+
+					results.forEach(function(results){
+
+							var data = results['n']['properties'];
+							console.log(data['object_id']);
+
+
+								db.cypher({
+
+										query:"MATCH(n:{object_id:{object_id}})"
+
+								});
+
+
+
+
+					});
+
+			});
 
 			return res.send();
-
 	});
 
 
