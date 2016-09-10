@@ -1,6 +1,6 @@
 module.exports = {
 
-	"database" : "mongodb://127.0.0.1/beatnik_reminder",
+	"database" : "mongodb://root:123456@ds139725.mlab.com:39725/subject_seed",
 	"port": 3000,
 	"secretKey" : "YourSecretKey"
 

@@ -65,7 +65,7 @@ mongoose.connect(config.database,function(err) {
 });
 
 
-var api_v1 = require('./app/routes/api/v1')(app, db,express);
+var api_v1 = require('./app/routes/api/v1')(app, db,mongoose,express);
 
 app.use('/v1', api_v1);
 
