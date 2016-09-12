@@ -198,7 +198,7 @@ module.exports = function (app, neo4j,mongoose,express) {
 									}, function (err,results) {
 
 									    if (err)
-									    	throw err;
+									    	console.log(err);
 
 									    let course_object_id = results[0]['n']['properties']['object_id'];
 									  
@@ -215,7 +215,7 @@ module.exports = function (app, neo4j,mongoose,express) {
 											}, function (err) {
 
 											    if (err)
-											    	throw err;
+											    	console.log(err);
 
 
 											});
@@ -241,8 +241,21 @@ module.exports = function (app, neo4j,mongoose,express) {
 
 	api.get('/relationship',(req,res) => {
 
-			// relationship query
+			Subject.find({ subject_code: '03' },function(err,info){
 
+					info.forEach(function(info) {
+
+					let course_name = info.subject_name;
+					let course_code = info.course_code;
+					let course_credit = info.course_credit;
+
+					console.log(course_name);
+
+					});
+
+			});
+
+			return res.send('Ok');
 	});
 
 
